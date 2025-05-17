@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>لمار</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(-45deg, #000, #1a001a, #330033, #1a001a);
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+      color: #fff;
+      font-family: 'Tahoma', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+    @keyframes gradient {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    header {
+      background-color: #ff69b4;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 2rem;
+      box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
+      animation: fadeIn 2s;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+    }
+    .card:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: scale(1.04);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+    }
+    .card img {
+      width: 60px;
+      margin-bottom: 10px;
+      transition: transform 0.3s;
+    }
+    .card:hover img {
+      transform: rotate(10deg);
+    }
+    .content {
+      padding: 1rem;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .active {
+      display: block;
+    }
+    .footer {
+      text-align: center;
+      font-size: 1rem;
+      margin: 2rem 0;
+      color: #ccc;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #ff69b4;
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #ff85c1;
+      transform: scale(1.05);
+    }
+    .heart {
+      position: fixed;
+      font-size: 24px;
+      animation: floatUp 2s ease-out forwards;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-150px); opacity: 0; }
+    }
+    .background-hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .background-hearts span {
+      position: absolute;
+      display: block;
+      color: rgba(255, 105, 180, 0.2);
+      animation: floatUp 5s linear infinite;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="background-hearts">
+    <span style="left:10%; top:90%;">♥</span>
+    <span style="left:30%; top:95%;">♥</span>
+    <span style="left:50%; top:92%;">♥</span>
+    <span style="left:70%; top:97%;">♥</span>
+    <span style="left:85%; top:94%;">♥</span>
+  </div>
+  <audio id="popSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_57d3e0f7f3.mp3" preload="auto"></audio>
+  <header onclick="triggerEffects()">هديّة من المنذر للعظيمة لمار</header>
+  <div class="grid">
+    <div class="card" onclick="triggerEffects(); showSection('memory')"><img src="https://img.icons8.com/emoji/48/heart-suit.png"/>الذكريات</div>
+    <div class="card" onclick="triggerEffects(); showSection('stories')"><img src="https://img.icons8.com/emoji/48/open-book.png"/>قصصنا</div>
+    <div class="card" onclick="triggerEffects(); showSection('music')"><img src="https://img.icons8.com/emoji/48/musical-note.png"/>أغاني لمار</div>
+    <div class="card" onclick="triggerEffects(); showSection('game')"><img src="https://img.icons8.com/emoji/48/video-game.png"/>لعبة حب</div>
+    <div class="card" onclick="triggerEffects(); showSection('about')"><img src="https://img.icons8.com/emoji/48/sparkling-heart.png"/>عن لمار</div>
+  </div>
+  <div class="content" id="memory"><h3>ذكرياتنا</h3><p>صورنا الجميلة، لحظاتنا، رسائلنا، وكل شيء يبقينا قريبين للأبد.</p><img src="https://placekitten.com/300/200" alt="ذكرى" style="width:100%; border-radius:12px;" /></div>
+  <div class="content" id="stories"><h3>قصة حبنا</h3><p>في يوم من الأيام، التقى قلبان، وقررا أن لا يفترقا أبدًا...</p></div>
+  <div class="content" id="music"><h3>أغاني لمار</h3><audio controls><source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">متصفحك لا يدعم تشغيل الصوت.</audio></div>
+  <div class="content" id="game"><h3>لعبة حب بسيطة</h3><button onclick="triggerEffects(); playLoveGame()">اضغطي هنا</button></div>
+  <div class="content" id="about"><h3>عن لمار</h3><p>هدية من العظيم ابن العظيم المنذر للغالية لمار... لأنك تستحقين كل الجمال.</p></div>
+  <div class="footer">&copy; 2025 - بكل حب للمار</div>
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.content').forEach(e => {
+        e.classList.remove('active');
+        e.style.display = "none";
+      });
+      const section = document.getElementById(id);
+      section.classList.add('active');
+      section.style.display = "block";
+    }
+    function playLoveGame() {
+      const messages = [
+        "أنتِ أجمل صدفة في حياتي",
+        "لمار، كل لحظة معك جنة",
+        "أحبك أكثر مما تتصورين",
+        "يا نبض قلبي، أنتِ كل شيء"
+      ];
+      const msg = messages[Math.floor(Math.random() * messages.length)];
+      alert(msg);
+    }
+    function triggerEffects() {
+      playSound();
+      for (let i = 0; i < 3; i++) {
+        setTimeout(spawnHeart, i * 100);
+      }
+    }
+    function playSound() {
+      const sound = document.getElementById('popSound');
+      sound.currentTime = 0;
+      sound.play();
+    }
+    function spawnHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '♥';
+      heart.style.left = (Math.random() * window.innerWidth) + 'px';
+      heart.style.top = (window.innerHeight - 40) + 'px';
+      heart.style.color = ['#ff69b4', '#ff1493', '#ffb6c1'][Math.floor(Math.random() * 3)];
+      heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 2000);
+    }
+  </script>
+</body>
+</html>
